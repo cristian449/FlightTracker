@@ -16,6 +16,9 @@
   },
   "devDependencies": {
     "dotenv": "^17.2.3",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
   }
 }
