@@ -1,0 +1,23 @@
+{
+  "name": "flighttracker",
+  "version": "1.0.0",
+  "description": "Hajusrakenduste projekt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristian449/FlightTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cristian449/FlightTracker/issues"
+  },
+  "homepage": "https://github.com/cristian449/FlightTracker#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
