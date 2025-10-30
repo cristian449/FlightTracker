@@ -1,44 +1,282 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Flights API",
-        "version": "1.0.0",
-        "description": "A brand new API with no content.  Go nuts!"
-    },
-    "basePath": "/api/v1",
-    "paths": {
-        "/flights": {
-            "get": {
-                "tags": [
-                    "flights"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "examples": {
-                                    "List of flights": {
-                                        "value": [
-                                            "Flight 101 London to Tokyo",
-                                            "Flight 456 Boston to Miami",
-                                            "Flight 789 Tallinn to Oslo"
-                                        ]
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Returns a list of flights."
-                    }
+  "swagger": "2.0",
+  "info": {
+    "title": "Flights API",
+    "version": "1.0",
+    "description": "### This is a Swagger UI for our Flights API  \n\n### Error handling\nErrors are presented using the HTTP status codes 400–599. The response includes a detailed explanation about the error in the body.\n\n```\n{\n  \"error\": \"Cleartext explanation of the error that occurred\"\n}\n```\n\n### Generic API errors\nThese error responses can be returned by any of the described endpoints.\n\n| HTTP status  |  Description |\n|---|---|\n| 400| Bad input parameters or invalid request. More information can be found in the response body.|\n| 401| The consumer does not have access to the requested resource or the provided token is not valid.|\n| 404| The requested resource cannot be found or the user does not have access to the resource.|\n| 5XX| A server error has occurred while processing the request.|"
+  },
+  "basePath": "/api/v1",
+  "paths": {
+    "/flights": {
+      "get": {
+        "produces": ["application/json"],
+        "tags": ["Flights"],
+        "responses": {
+          "200": {
+            "description": "List of flights",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FlightsListItem"
+              }
+            },
+            "examples": {
+              "application/json": [
+                {
+                  "id": 1,
+                  "name": "Flight 456 Boston to Miami"
                 },
-                "summary": "Get a list of all flights",
-                "description": "Returns a list of all flights in the API."
+                {
+                  "id": 2,
+                  "name": "Flight 789 Tallinn to Oslo"
+                }
+              ]
             }
-        }
+          }
+        },
+        "summary": "Get all flights"
+      },
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Flights"],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Flight to be created (without ID)",
+            "schema": {
+              "$ref": "#/definitions/NewFlight"
+            },
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created flight",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            },
+            "examples": {
+              "application/json": {
+                "id": 3,
+                "name": "Flight 123 London to Paris",
+                "from": "London",
+                "to": "Paris",
+                "length": "2 hours"
+              }
+            }
+          }
+        },
+        "summary": "Create flight"
+      }
+    },
+    "/flights/{id}": {
+      "get": {
+        "produces": ["application/json"],
+        "tags": ["Flights"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the requested Flight details",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            },
+            "examples": {
+              "application/json": {
+                "id": 1,
+                "name": "Flight 456 Boston to Miami",
+                "from": "Boston",
+                "to": "Miami",
+                "length": "4–5 hours"
+              }
+            }
+          },
+          "404": {
+            "description": "Flight not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            },
+            "examples": {
+              "application/json": {
+                "error": "Flight not found"
+              }
+            }
+          }
+        },
+        "summary": "Get a flight by ID"
+      },
+      "put": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Flights"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "body",
+            "description": "Flight with updated data",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            },
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Flight updated successfully",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            },
+            "examples": {
+              "application/json": {
+                "id": 1,
+                "name": "Flight 456 Boston to Miami (Updated)",
+                "from": "Boston",
+                "to": "Miami",
+                "length": "5 hours"
+              }
+            }
+          },
+          "404": {
+            "description": "Flight not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "Update flight by ID"
+      },
+      "delete": {
+        "produces": ["application/json"],
+        "tags": ["Flights"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Flight deleted"
+          },
+          "404": {
+            "description": "Flight not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            },
+            "examples": {
+              "application/json": {
+                "error": "Flight not found"
+              }
+            }
+          }
+        },
+        "summary": "Delete flight"
+      }
     }
+  },
+  "definitions": {
+    "FlightsListItem": {
+      "title": "Root Type for FlightsListItem",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "id": 1,
+        "name": "Flight 456 Boston to Miami"
+      }
+    },
+    "Flight": {
+      "title": "Root Type for Flight",
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "length": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "id": 1,
+        "name": "Flight 456 Boston to Miami",
+        "from": "Boston",
+        "to": "Miami",
+        "length": "4–5 hours"
+      }
+    },
+    "Error": {
+      "title": "Root Type for Error",
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "error": "Error message"
+      }
+    },
+    "NewFlight": {
+      "title": "Root Type for NewFlight",
+      "required": ["name", "from", "to"],
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Required, unique",
+          "type": "string"
+        },
+        "from": {
+          "description": "Departure location",
+          "type": "string"
+        },
+        "to": {
+          "description": "Arrival location",
+          "type": "string"
+        },
+        "length": {
+          "description": "Approximate flight duration",
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Flight 123 London to Paris",
+        "from": "London",
+        "to": "Paris",
+        "length": "2 hours"
+      }
+    }
+  }
 }
