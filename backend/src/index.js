@@ -11,6 +11,7 @@ import swaggerDoc from './docs/swagger.json' with { type: "json" };
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 const httpServer = http.createServer(app);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));

@@ -8,6 +8,8 @@
     "frontend"
   ],
   "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "subpkg install",
     "build": "subpkg run build"
@@ -17,17 +19,18 @@
     "url": "git+https://github.com/cristian449/FlightTracker.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cristian Pent, Marko Maripuu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cristian449/FlightTracker/issues"
   },
   "homepage": "https://github.com/cristian449/FlightTracker#readme",
-  "dependencies": {
+  "devDependencies": {
     "concurrently": "^9.2.1",
     "subpackage": "^1.1.0"
   },
-    "overrides": {
+  "overrides": {
     "cross-spawn": "^6.0.6"
-    }
+  }
 }
+

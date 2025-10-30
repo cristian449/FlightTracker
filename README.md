@@ -17,6 +17,11 @@ Peale kloonimist minna kloonitud kausta ja käivitada käsk
 
 `npm install`
 
+Projekti käivitamiseks kopeeri .env.example file ning nimeta:
+
+`.env`
+
 Projekti käivitamiseks anda korraldus
 
 `npm run dev`
+
