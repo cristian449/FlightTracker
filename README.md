@@ -6,7 +6,7 @@ Tegijad: Cristian Pent, Marko Maripuu
 
 Mängude kogumiku rakendus, kuhu saab lisada oma mängude statistikat
 
-[[Projektihaldus - LiteTracker]()](https://app.litetracker.com/n/projects/756886)
+[[Projektihaldus - LiteTracker](https://app.litetracker.com/n/projects/756886)
 
 ## Keskkona seadistamine
 
