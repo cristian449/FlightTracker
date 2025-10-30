@@ -35,8 +35,8 @@ if (process.env.DB_SYNC === "true") {
             where: {name: "Flight 456 Boston to Miami"},
             defaults: {
                 name: "Flight 456 Boston to Miami",
-                From: "Boston",
-                To: "Miami",
+                from: "Boston",
+                to: "Miami",
                 length: "4-5 hours"
             },
         });

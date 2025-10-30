@@ -2,7 +2,9 @@ import Flights from "./Flightmodel.js";
 
 export const flightService = {
     getFlight: async (flightId) => {
-        const flight = await Flights.findByPk(flightId);
+        const flight = await Flights.findByPk(flightId, {
+            attributes: {exclude: ['createdAt', 'updatedAt']},
+        });
         return flight ? flight.get({ plain: true }) : undefined;
     },
     getFlights: async () => {
