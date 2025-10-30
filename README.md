@@ -2,7 +2,7 @@
 
 Hajusrakenduste projekt
 
-Tegijad: Cristian Pent
+Tegijad: Cristian Pent, Marko Maripuu
 
 Mängude kogumiku rakendus, kuhu saab lisada oma mängude statistikat
 
