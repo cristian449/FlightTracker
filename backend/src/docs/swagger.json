@@ -1,0 +1,44 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Flights API",
+        "version": "1.0.0",
+        "description": "A brand new API with no content.  Go nuts!"
+    },
+    "basePath": "/api/v1",
+    "paths": {
+        "/flights": {
+            "get": {
+                "tags": [
+                    "flights"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of flights": {
+                                        "value": [
+                                            "Flight 101 London to Tokyo",
+                                            "Flight 456 Boston to Miami",
+                                            "Flight 789 Tallinn to Oslo"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list of flights."
+                    }
+                },
+                "summary": "Get a list of all flights",
+                "description": "Returns a list of all flights in the API."
+            }
+        }
+    }
+}

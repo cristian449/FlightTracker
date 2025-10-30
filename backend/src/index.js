@@ -5,10 +5,16 @@ import { sync } from './data/dbConfig.js';
 // import { userService } from './data/userService.js';
 import { userService } from './data/dataServices.js';
 import { flightService} from "./data/Flightservice.js";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDoc from './docs/swagger.json' with { type: "json" };
+
 dotenv.config();
 
 const app = express();
 const httpServer = http.createServer(app);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
 
 app.get('/api/v1/flights/:id', async (req, res) => {
     if (!req.params.id) {
@@ -23,8 +29,13 @@ app.get('/api/v1/flights/:id', async (req, res) => {
 
 
 app.get('/api/v1/flights', async (req, res) => {
-    const games =await gameService.getGames();
-    return res.json(games);
+    try {
+        const flights = await flightService.getFlights();
+        return res.json(flights);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
 });
 
 
