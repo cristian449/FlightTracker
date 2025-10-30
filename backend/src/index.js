@@ -16,6 +16,11 @@ const httpServer = http.createServer(app);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
+app.get('/', async (req, res) => {
+    const user = await userService.getUser("Tiit");
+    res.status(200).type('text/plain').send(`Hello, ${user.username}!`);
+});
+
 
 app.get('/api/v1/flights/:id', async (req, res) => {
     if (!req.params.id) {
