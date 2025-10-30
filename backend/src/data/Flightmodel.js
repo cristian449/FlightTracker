@@ -14,6 +14,15 @@ const Flights = sequelize.define(
         name: {
             type: DataTypes.STRING,
             allowNull: false
+                },
+        from: {
+            type: DataTypes.STRING,
+        },
+        to: {
+            type: DataTypes.STRING,
+        },
+        length: {
+            type: DataTypes.STRING
         }
     }
 );
@@ -21,11 +30,15 @@ const Flights = sequelize.define(
 console.log("SYNC", process.env.DB_SYNC === "true");
 if (process.env.DB_SYNC === "true") {
     await sequelize.sync();
-    console.log("SEED", process.env.DB_SEED === "true");
     if (process.env.DB_SEED === "true") {
         await Flights.findOrCreate({
-            where: { name: "New York - Boston" },
-            defaults: { name: "New York - Boston" },
+            where: {name: "Flight 456 Boston to Miami"},
+            defaults: {
+                name: "Flight 456 Boston to Miami",
+                From: "Boston",
+                To: "Miami",
+                length: "4-5 hours"
+            },
         });
     }
 }
