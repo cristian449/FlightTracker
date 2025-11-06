@@ -44,6 +44,42 @@ app.get('/api/v1/flights', async (req, res) => {
     }
 });
 
+app.post('/api/v1/flights', async (req, res) => {
+    const { name, from, to, length } = req.body;
+
+
+    if (!name || name.trim() === "") {
+        return res.status(400).send({ error: "Missing or empty required field: name" });
+    }
+
+    try {
+        const createdFlight = await flightService.createFlight(name, from, to, length);
+        return res.status(201).json(createdFlight);
+    } catch (error) {
+        console.error("Error creating flight:", error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
+app.delete('/api/v1/flights/:id', async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).send({ error: "URL does not contain ID" });
+    }
+
+    try {
+        const flightDeleted = await flightService.deleteFlight(id);
+        if (!flightDeleted) {
+            return res.status(404).send({ error: "Flight not found" });
+        }
+        return res.status(204).send(); 
+    } catch (error) {
+        console.error("Error deleting flight:", error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
 
 const PORT = process.env.PORT;
 
