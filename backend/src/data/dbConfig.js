@@ -1,32 +1,57 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, DataTypes } from "sequelize";
+import dotenv from "dotenv";
+import FlightModel from "./Flightmodel.js";
+import UserModel from "./userModel.js";
+import BookingModel from "./Bookingmodel.js";
+import relations from "./relations.js";
+import seed from "./seed.js";
 
-const isTest = process.env.NODE_ENV === 'test';
-console.log("isTest:",isTest);
+dotenv.config();
+
+const isTest = process.env.NODE_ENV === "test";
+console.log("isTest:", isTest);
 
 const sequelize = isTest
     ? new Sequelize({
         dialect: "sqlite",
-        storage: ':memory',
-        logging: false
+        storage: ":memory:",
+        logging: false,
     })
     : new Sequelize({
-        dialect: 'sqlite',
+        dialect: "sqlite",
         storage: process.env.DB_FILE,
-        logging: false
+        logging: false,
     });
 
 (async () => {
     try {
         await sequelize.authenticate();
-        console.log("Database connection has been established.");
+        console.log("Database connection established.");
     } catch (error) {
-        console.log("Unable to connect to the database:", error);
+        console.error("Unable to connect to the database:", error);
     }
 })();
 
-const sync = (async () => {
-    await sequelize.sync({ alter: true });
-    console.log("All models were synchronized.");
-})
 
-export {sequelize, sync};
+const db = {};
+db.Flights = FlightModel(sequelize, DataTypes);
+db.Users = UserModel(sequelize, DataTypes);
+db.Bookings = BookingModel(sequelize, DataTypes);
+
+
+relations(db);
+
+const sync = async () => {
+    await sequelize.sync({ alter: true });
+    console.log("All models synchronized.");
+};
+
+export { sequelize, sync, db };
+
+
+if (process.env.DB_SYNC === "true") {
+    await sync();
+    if (process.env.DB_SEED === "true") {
+        await seed(db);
+    }
+}

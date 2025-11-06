@@ -1,14 +1,16 @@
 export default (sequelize, DataTypes) => {
     return sequelize.define(
-        "User",
+        "Booking",
         {
-            username: {
-                type: DataTypes.STRING,
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
                 primaryKey: true,
             },
-            password: {
-                type: DataTypes.STRING,
+            bookingdate: {
+                type: DataTypes.DATE,
                 allowNull: false,
+                
             }
         }
     );
