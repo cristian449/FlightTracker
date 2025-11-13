@@ -1,11 +1,11 @@
 import { db } from "./dbConfig.js";
 const { Flights, Users } = db;
 
+
 export const flightService = {
     getFlight: async (flightId) => {
         const flight = await db.Flights.findOne({
             where: { id: flightId },
-            attributes: { exclude: ['createdAt', 'updatedAt'] },
             include: {
         model: db.Users,
         through: { attributes: [] }, 
@@ -25,6 +25,14 @@ export const flightService = {
     createFlight: async (name, from, to, length) => {
         const createdFlight = await Flights.create({ name, from, to, length });
         return createdFlight.get({ plain: true });
+    },
+
+    updateGame: async (flightId, flight) => {
+        const [updatedCount, _ ] = await Flights.update(flight, {where: {id: flightId}});
+        if (updatedCount > 0) {
+            return await Games.findByPk(flightId);
+        }
+        return null;
     },
 
     deleteFlight: async (flightId) => {
