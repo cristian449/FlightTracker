@@ -16,11 +16,25 @@ const sequelize = isTest
         dialect: "sqlite",
         storage: ":memory:",
         logging: false,
+        define: {
+            defaultScope: {
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
+            }
+        }
     })
     : new Sequelize({
         dialect: "sqlite",
         storage: process.env.DB_FILE,
-        logging: console.log,
+        logging: false,
+        define: {
+            defaultScope: {
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
+            }
+        }
     });
 
 (async () => {
@@ -37,6 +51,8 @@ const db = {};
 db.Flights = FlightModel(sequelize, DataTypes);
 db.Users = UserModel(sequelize, DataTypes);
 db.Bookings = BookingModel(sequelize, DataTypes);
+db.FlightEvents = FlightEventModel(sequelize, DataTypes);
+
 
 
 relations(db);
@@ -45,9 +61,6 @@ const sync = async () => {
     await sequelize.sync({ force: true });
     console.log("All models synchronized.");
 };
-
-export { sequelize, sync, db };
-
 
 if (process.env.DB_SYNC === "true") {
     await sync();
@@ -61,3 +74,7 @@ if (process.env.DB_SYNC === "true") {
         }
     }
 }
+
+export { sequelize, sync, db };
+
+

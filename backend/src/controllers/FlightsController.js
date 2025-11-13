@@ -1,4 +1,7 @@
 import { flightService } from "../data/Flightservice.js";
+import { flightEventService } from "../data/FlighteventService.js";
+
+//Flight CRUD
 
 const getById = async (req, res) => {
     const { id } = req.params;
@@ -33,12 +36,14 @@ const create = async (req, res) => {
     }
 
     try {
-        const createdFlight = await flightService.createFlight(name, from, to, length);
+        const createdFlight = await flightEventService.logEvent(createdFlight.id, "CREATED", "Flight was created");
         return res.status(201).json(createdFlight);
     } catch (error) {
         console.error("Error creating flight:", error);
         return res.status(500).send({ error: "Internal Server Error" });
     }
+    
+    
 };
 
 const remove = async (req, res) => {
@@ -49,7 +54,8 @@ const remove = async (req, res) => {
     }
 
     try {
-        const flightDeleted = await flightService.deleteFlight(id);
+        const flightDeleted = await flightEventService.logEvent(id, "DELETED", "Flight was removed");
+
         if (!flightDeleted) {
             return res.status(404).send({ error: "Flight not found" });
         }
@@ -61,37 +67,37 @@ const remove = async (req, res) => {
 };
 
 
-const update = async (req, res) => {
-    const { id } = req.params;
-
-    if (!id) {
+const updateById = async (req, res) => {
+    if (!req.params.id) {
         return res.status(400).send({ error: "URL does not contain ID" });
     }
+    const updatedFlight = await await flightEventService.logEvent(id, "UPDATED", "Flight details were updated");
 
-    const { name, from, to, length } = req.body;
-    if (!name || name.trim() === "") {
-        return res.status(400).send({ error: "Missing or empty required field: name" });
+    if (!updatedFlight) {
+        return res.status(404).send({ error: "Flight not found" });
     }
+    return res.json(updatedFlight);
+}
+
+//Flight Events
+
+const getEvents = async (req, res) => {
+    const { id } = req.params;
 
     try {
-        const updatedFlight = await flightService.updateFlight(id, { name, from, to, length });
-
-        if (!updatedFlight) {
-            return res.status(404).send({ error: "Flight not found" });
-        }
-
-        return res.json(updatedFlight);
+        const events = await flightEventService.getEventsForFlight(id);
+        return res.json(events);
     } catch (error) {
-        console.error("Error updating flight:", error);
+        console.error("Error fetching flight events:", error);
         return res.status(500).send({ error: "Internal Server Error" });
     }
 };
-
 
 export default {
     getById,
     getAll,
     create,
     remove,
-    update
+    updateById,
+    getEvents
 };

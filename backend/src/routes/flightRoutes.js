@@ -8,4 +8,8 @@ export default (app) => {
         .get(FlightsController.getById)
         .delete(FlightsController.remove)
         .put(FlightsController.updateById);
+
+    //FlightEvents
+    app.route('/api/v1/flights/:id/events')
+        .get(FlightsController.getEvents);
 };
