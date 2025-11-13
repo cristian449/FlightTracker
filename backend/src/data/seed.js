@@ -1,5 +1,5 @@
 export default async (db) => {
-    await db.Flights.findOrCreate({
+      const [flight, flightCreated] = await db.Flights.findOrCreate({
         where: { name: "Flight 456 Boston to Miami" },
         defaults: {
             name: "Flight 456 Boston to Miami",
@@ -9,11 +9,22 @@ export default async (db) => {
         },
     });
 
-    await db.Users.findOrCreate({
-        where: { username: "Tiit" },
+    const [user, userCreated] = await db.Users.findOrCreate({
+        where: { username: "opilane" },
         defaults: {
-            username: "Tiit",
-            password: "pass"
-        },
+            username: "opilane",
+            password: "$2a$10$OjEII2iqxMpjdd8kSEZty.ZNVVqLjm1YtHDWBpqxyMstdV09XlfSy" 
+        }
     });
+    console.log("User created:", userCreated);
+
+    const [booking, bookingCreated] = await db.Bookings.findOrCreate({
+        where: { id: 1 },
+        defaults: {
+            FlightId: flight.id,          
+            UserUsername: user.username,  
+            bookingDate: new Date()
+        }
+    });
+    console.log("Booking created:", bookingCreated);
 };

@@ -20,7 +20,7 @@ const sequelize = isTest
     : new Sequelize({
         dialect: "sqlite",
         storage: process.env.DB_FILE,
-        logging: false,
+        logging: console.log,
     });
 
 (async () => {
@@ -42,7 +42,7 @@ db.Bookings = BookingModel(sequelize, DataTypes);
 relations(db);
 
 const sync = async () => {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     console.log("All models synchronized.");
 };
 
@@ -51,7 +51,13 @@ export { sequelize, sync, db };
 
 if (process.env.DB_SYNC === "true") {
     await sync();
+
     if (process.env.DB_SEED === "true") {
-        await seed(db);
+        try {
+            await seed(db);
+            console.log("Seeding succeeded!");
+        } catch (e) {
+            console.error("Seeding failed:", e.message);
+        }
     }
 }
