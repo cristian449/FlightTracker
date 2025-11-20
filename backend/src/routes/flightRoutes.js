@@ -9,7 +9,8 @@ export default (app) => {
         .delete(FlightsController.remove)
         .put(FlightsController.updateById);
 
-    //FlightEvents
+    //FlightEvents as i dont want to create a separate route file for them
+    //Same with the controller
     app.route('/api/v1/flights/:id/events')
         .get(FlightsController.getEvents);
 };

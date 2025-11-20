@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import FlightModel from "./Flightmodel.js";
 import UserModel from "./userModel.js";
 import BookingModel from "./Bookingmodel.js";
+import Flighteventmodel from "./Flighteventmodel.js";
 import relations from "./relations.js";
 import seed from "./seed.js";
 
@@ -51,7 +52,7 @@ const db = {};
 db.Flights = FlightModel(sequelize, DataTypes);
 db.Users = UserModel(sequelize, DataTypes);
 db.Bookings = BookingModel(sequelize, DataTypes);
-db.FlightEvents = FlightEventModel(sequelize, DataTypes);
+db.FlightEvents = Flighteventmodel(sequelize, DataTypes);
 
 
 
