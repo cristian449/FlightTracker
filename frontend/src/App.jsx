@@ -2,12 +2,21 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import FilterableFlightsTable from './components/flight/filterableFlightsTable.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
+
+  const flights = [
+    { id: 1, name: "Flight 101", from: "New York", to: "Los Angeles", length: 300 },
+    { id: 2, name: "Flight 202", from: "Chicago", to: "Miami", length: 180 },
+    { id: 3, name: "Flight 303", from: "San Francisco", to: "Seattle", length: 120 },
+  ];
+
   return (
     <>
+        <FilterableFlightsTable flights={flights} />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

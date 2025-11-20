@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "type": "module",  
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon .",
@@ -14,8 +14,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0",
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

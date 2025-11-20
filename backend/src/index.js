@@ -1,9 +1,11 @@
 import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
-import { flightService} from "./data/Flightservice.js";
+import flightRoutes from './routes/flightRoutes.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDoc from './docs/swagger.json' with { type: "json" };
+import userRoutes from "./routes/userRoutes.js";
+
 
 dotenv.config();
 
@@ -17,70 +19,13 @@ app.get('/', async (req, res) => {
     res.status(200).type('text/html').send(`<a href="/docs">swagger</a>`);
 });
 
-
-app.get('/api/v1/flights/:id', async (req, res) => {
-    if (!req.params.id) {
-        return res.status(400).send({ error: "URL does not contain ID" });
-    }
-    const flight = await flightService.getFlight(req.params.id);
-    if (!flight) {
-        return res.status(404).send({ error: "Flight not found" });
-    }
-    return res.json(flight);
-});
-
-
-app.get('/api/v1/flights', async (req, res) => {
-    try {
-        const flights = await flightService.getFlights();
-        return res.json(flights);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send({ error: "Internal Server Error" });
-    }
-});
-
-app.post('/api/v1/flights', async (req, res) => {
-    const { name, from, to, length } = req.body;
-
-
-    if (!name || name.trim() === "") {
-        return res.status(400).send({ error: "Missing or empty required field: name" });
-    }
-
-    try {
-        const createdFlight = await flightService.createFlight(name, from, to, length);
-        return res.status(201).json(createdFlight);
-    } catch (error) {
-        console.error("Error creating flight:", error);
-        return res.status(500).send({ error: "Internal Server Error" });
-    }
-});
-
-app.delete('/api/v1/flights/:id', async (req, res) => {
-    const { id } = req.params;
-
-    if (!id) {
-        return res.status(400).send({ error: "URL does not contain ID" });
-    }
-
-    try {
-        const flightDeleted = await flightService.deleteFlight(id);
-        if (!flightDeleted) {
-            return res.status(404).send({ error: "Flight not found" });
-        }
-        return res.status(204).send(); 
-    } catch (error) {
-        console.error("Error deleting flight:", error);
-        return res.status(500).send({ error: "Internal Server Error" });
-    }
-});
-
+flightRoutes(app);
+userRoutes(app);
 
 const PORT = process.env.PORT;
 
 httpServer.listen(PORT, async () => {
-    console.log(`Server is running at ${process.env.SERVER_URL}:${PORT}/`);
+    console.log(`Server is running at http://${process.env.HOST}:${PORT}/`);
 });
 
 export { httpServer, app };

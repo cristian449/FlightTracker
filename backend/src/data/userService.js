@@ -1,5 +1,6 @@
 import { db } from "./dbConfig.js";
 
+const Users = db;
 export const userService = {
     createUser: async (username, hashedPassword) => {
         const existing = await db.Users.findByPk(username);
