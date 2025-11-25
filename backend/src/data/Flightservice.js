@@ -17,7 +17,7 @@ export const flightService = {
 
     getFlights: async () => {
         const flights = await Flights.findAll({
-            attributes: ["id", "name"],
+            attributes: ["id", "name" ],
         });
         return flights.map((f) => f.get({ plain: true }));
     },
