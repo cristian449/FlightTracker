@@ -5,11 +5,13 @@ import flightRoutes from './routes/flightRoutes.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDoc from './docs/swagger.json' with { type: "json" };
 import userRoutes from "./routes/userRoutes.js";
+import cors from 'cors';
 
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 const httpServer = http.createServer(app);
 
