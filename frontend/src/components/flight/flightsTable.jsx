@@ -1,5 +1,7 @@
 import AirportRow from "./tableParts/AirportRow.jsx";
 import FlightRow from "./tableParts/FlightRow.jsx";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function FlightsTable({ flights }) {
     const rows = [];
