@@ -8,7 +8,6 @@ export const flightService = {
             where: { id: flightId },
             include: {
         model: db.Users,
-        through: { attributes: [] }, 
         as: "Customers"                 
         }
     });
@@ -17,7 +16,7 @@ export const flightService = {
 
     getFlights: async () => {
         const flights = await Flights.findAll({
-            attributes: ["id", "name", "from", "to", "length"],
+            attributes: ['id', 'name', 'from', 'to', 'length'],
         });
         return flights.map((f) => f.get({ plain: true }));
     },

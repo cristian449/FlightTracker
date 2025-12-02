@@ -12,7 +12,7 @@ export default function FlightsTable({ flights }) {
             rows.push(
                 <AirportRow
                     airport={flight.from}
-                    key={`airport-${flight.from}`}
+                    key={flight.from || "unknown-airport"}
                 />
             );
         }
