@@ -26,8 +26,10 @@ userRoutes(app);
 
 const PORT = process.env.PORT;
 
+
 httpServer.listen(PORT, async () => {
-    console.log(`Server is running at http://${process.env.HOST}:${PORT}/`);
+   console.log(`Server is running at http://${process.env.HOST}:${PORT}/`);
+
 });
 
 export { httpServer, app };
