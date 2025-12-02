@@ -1,31 +1,16 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import axios from 'axios'
 import './App.css'
 import FilterableFlightsTable from './components/flight/filterableFlightsTable.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
-  const [flights, setFlights] = useState([]);
-    useEffect(() => {
-        const fetchFlights = async () => {
-            try {
-                const response = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/flights");
-                setFlights(response.data);
-            }
-            catch (error) {
-                console.error('Error fetching flights:', error);
-            }
-        }
-
-        fetchFlights().then(() => {() => console.log("Flights fetched")});
-    }, []);
   
     return (
         <>
-            <FilterableFlightsTable flights={flights} />
+            <FilterableFlightsTable />
 
             <div>
                 <a href="https://vite.dev" target="_blank">
