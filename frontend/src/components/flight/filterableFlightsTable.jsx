@@ -1,11 +1,11 @@
 import SearchBar from "../common/searchBar.jsx";
 import FlightTable from "./flightsTable.jsx";
 
-export default function FilterableGamesTable({ flights }) {
+export default function FilterableFlightsTable() {
     return (
         <div>
             <SearchBar />
-            <FlightTable flights={flights} />
+            <FlightTable />
         </div>
     );
 }
