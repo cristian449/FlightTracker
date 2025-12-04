@@ -6,7 +6,6 @@ import RegisterForm from "./components/authorization/RegisterForm.jsx";
 
 import FilterableFlightsTable from "./components/flight/filterableFlightsTable.jsx";
 import BookingHistory from "./components/booking/BookingHistory.jsx";
-import FlightSelector from "./components/flight/flightSelector.jsx";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -111,53 +110,6 @@ function App() {
                 </div>
 
 
-                <h2>Your Selected Flights</h2>
-                {myFlights.map((flight) => (
-    <li key={flight.id}>
-        {flight.name} — {flight.from} → {flight.to}
-
-        <button
-            style={{ marginLeft: "10px" }}
-            onClick={async () => {
-                try {
-                    // Re-fetch bookings to find the booking for this flight
-                    const res = await axios.get(
-                        `http://localhost:8000/api/v1/users/${loggedInUser}/bookings`
-                    );
-
-                    const booking = res.data.find(b => b.FlightId === flight.id);
-
-                    if (booking) {
-                        await axios.delete(
-                            `http://localhost:8000/api/v1/bookings/${booking.id}`
-                        );
-
-                        // Remove from frontend state
-                        setMyFlights(prev => prev.filter(f => f.id !== flight.id));
-                    }
-                    } catch (err) {
-                        console.error("Failed to remove booking:", err);
-                    }
-                }}
-            >
-                Remove
-            </button>
-        </li>
-    ))}
-
-
-                <FlightSelector
-                    onFlightSelected={async (flightId) => {
-                        try {
-                            const res = await axios.get(
-                                `http://localhost:8000/api/v1/flights/${flightId}`
-                            );
-                            setMyFlights((prev) => [...prev, res.data]);
-                        } catch (err) {
-                            console.error("Error selecting flight:", err);
-                        }
-                    }}
-                />
 
  
                 <FilterableFlightsTable />
