@@ -1,11 +1,14 @@
-import SearchBar from "../common/searchBar.jsx";
-import FlightTable from "./flightsTable.jsx";
+import { useState } from "react";
+import SearchBar from "../common/SearchBar.jsx";
+import FlightsTable from "./FlightsTable.jsx";
 
 export default function FilterableFlightsTable() {
+    const [searchText, setSearchText] = useState("");
+
     return (
         <div>
-            <SearchBar />
-            <FlightTable />
+            <SearchBar searchText={searchText} onSearch={setSearchText} />
+            <FlightsTable searchText={searchText} />
         </div>
     );
 }

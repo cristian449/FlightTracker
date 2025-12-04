@@ -16,4 +16,6 @@ export const flightEventService = {
             attributes: { exclude: ["updatedAt"] }
         });
     }
+
+
 };

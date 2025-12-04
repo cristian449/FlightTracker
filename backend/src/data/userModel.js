@@ -10,13 +10,16 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             }
-            
-           },
+        },
         {
             defaultScope: {
-                attributes: { exclude: ['password'] }
+                attributes: { exclude: ["password"] },
+            },
+            scopes: {
+                withPassword: {
+                    attributes: { include: ["password"] }
+                }
             }
         }
-        
     );
 };

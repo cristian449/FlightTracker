@@ -19,6 +19,10 @@ export default (sequelize, DataTypes) => {
             },
             length: {
                 type: DataTypes.STRING,
+            },
+             departureTime: {
+                type: DataTypes.DATE,
+                allowNull: false
             }
         }
     );
