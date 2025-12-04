@@ -5,6 +5,8 @@ import flightRoutes from './routes/flightRoutes.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDoc from './docs/swagger.json' with { type: "json" };
 import userRoutes from "./routes/userRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
+
 import cors from 'cors';
 
 
@@ -23,6 +25,7 @@ app.get('/', async (req, res) => {
 
 flightRoutes(app);
 userRoutes(app);
+bookingRoutes(app);
 
 const PORT = process.env.PORT;
 

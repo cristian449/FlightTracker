@@ -53,6 +53,8 @@ db.Flights = FlightModel(sequelize, DataTypes);
 db.Users = UserModel(sequelize, DataTypes);
 db.Bookings = BookingModel(sequelize, DataTypes);
 db.FlightEvents = Flighteventmodel(sequelize, DataTypes);
+db.Bookings = BookingModel(sequelize, DataTypes);
+
 
 
 

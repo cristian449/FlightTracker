@@ -1,3 +1,5 @@
+import BookButton from "../../booking/BookButton.jsx";
+
 export default function FlightRow({ flight }) {
     return (
         <tr>
@@ -5,6 +7,9 @@ export default function FlightRow({ flight }) {
             <td>{flight.from}</td>
             <td>{flight.to}</td>
             <td>{flight.length}</td>
+            <td>
+                <BookButton flight={flight} />
+            </td>
         </tr>
     );
 }

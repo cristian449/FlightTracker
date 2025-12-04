@@ -13,4 +13,7 @@ export default (app) => {
     //Same with the controller
     app.route('/api/v1/flights/:id/events')
         .get(FlightsController.getEvents);
+
+    app.get('/api/v1/flights/select-list', FlightsController.getSelectList);
+
 };

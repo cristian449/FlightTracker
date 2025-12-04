@@ -93,11 +93,25 @@ const getEvents = async (req, res) => {
     }
 };
 
+
+const getSelectList = async (req, res) => {
+    try {
+        const flights = await flightService.getFlights();
+        return res.json(flights.map(f => ({
+            id: f.id,
+            name: f.name
+        })));
+    } catch (error) {
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+};
+
 export default {
     getById,
     getAll,
     create,
     remove,
     updateById,
-    getEvents
+    getEvents,
+    getSelectList
 };
