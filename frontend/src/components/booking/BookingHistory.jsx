@@ -20,6 +20,16 @@ export default function BookingHistory() {
         loadBookings();
     }, []);
 
+    const removeBooking = async (id) => {
+    try {
+        await axios.delete(`http://localhost:8000/api/v1/bookings/${id}`);
+        setBookings(bookings.filter(b => b.id !== id));
+    } catch (err) {
+        console.error("Failed to remove booking", err);
+    }
+    };
+
+
     return (
         <div>
             <h2>Your Bookings</h2>
@@ -41,6 +51,12 @@ export default function BookingHistory() {
                             <td>{b.Flight?.to}</td>
                             <td>{b.Flight?.length}</td>
                             <td>{new Date(b.bookingdate).toLocaleString()}</td>
+                            <td>
+                                <button onClick={() => removeBooking(b.id)}>
+                                    Cancel Booking
+                                </button>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>

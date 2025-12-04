@@ -7,6 +7,8 @@ export default (app) => {
     return res.json(all);
     });
 
+    app.delete("/api/v1/bookings/:id", BookingsController.deleteBooking);
+
 
     app.post("/api/v1/bookings", BookingsController.create);
 

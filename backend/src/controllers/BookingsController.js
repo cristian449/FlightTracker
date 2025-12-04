@@ -55,8 +55,30 @@ const getSelectList = async (req, res) => {
     }
 };
 
+
+const deleteBooking = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deleted = await db.Bookings.destroy({
+            where: { id }
+        });
+
+        if (!deleted) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+
+        return res.status(204).send(); // success, no content
+    } catch (error) {
+        console.error("Error deleting booking:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
 export default {
     create,
     getUserBookings,
-    getSelectList
+    getSelectList,
+    deleteBooking
 };
