@@ -4,6 +4,9 @@ export default (app) => {
     app.route('/api/v1/flights')
         .get(FlightsController.getAll)
         .post(FlightsController.create);
+    
+    app.get('/api/v1/flights/select-list', FlightsController.getSelectList);
+    
     app.route('/api/v1/flights/:id')
         .get(FlightsController.getById)
         .delete(FlightsController.remove)
@@ -14,6 +17,5 @@ export default (app) => {
     app.route('/api/v1/flights/:id/events')
         .get(FlightsController.getEvents);
 
-    app.get('/api/v1/flights/select-list', FlightsController.getSelectList);
 
 };

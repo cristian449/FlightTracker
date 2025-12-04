@@ -23,17 +23,24 @@ export const flightService = {
     },
 
     createFlight: async (name, from, to, length) => {
-        const createdFlight = await Flights.create({ name, from, to, length });
-        return createdFlight.get({ plain: true });
+        return await Flights.create({
+            name,
+            from,
+            to,
+            length,
+            departureTime: new Date()
+        });
     },
 
-    updateGame: async (flightId, flight) => {
-        const [updatedCount, _ ] = await Flights.update(flight, {where: {id: flightId}});
+
+    updateFlight: async (flightId, data) => {
+        const [updatedCount] = await Flights.update(data, { where: { id: flightId } });
         if (updatedCount > 0) {
-            return await Games.findByPk(flightId);
+            return await Flights.findByPk(flightId);
         }
         return null;
     },
+
 
     deleteFlight: async (flightId) => {
         const deleteResult = await Flights.destroy({

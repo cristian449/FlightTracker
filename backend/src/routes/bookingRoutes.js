@@ -2,6 +2,11 @@ import BookingsController from "../controllers/BookingsController.js";
 
 export default (app) => {
 
+    app.get("/api/v1/bookings", async (req, res) => {
+    const all = await db.Bookings.findAll();
+    return res.json(all);
+    });
+
 
     app.post("/api/v1/bookings", BookingsController.create);
 

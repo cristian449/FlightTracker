@@ -4,6 +4,10 @@ export default (db) => {
     // A Flight can be booked by many Users
     db.Flights.belongsToMany(db.Users, { through: db.Bookings, as: "Customers" });
 
+    db.Bookings.belongsTo(db.Flights, { foreignKey: "FlightId" });
+    db.Bookings.belongsTo(db.Users, { foreignKey: "UserUsername" });
+
+
     db.Flights.hasMany(db.FlightEvents, {
         foreignKey: "FlightId",
         onDelete: "CASCADE"
