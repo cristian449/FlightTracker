@@ -10,7 +10,7 @@ export default function FlightsTable({ searchText }) {
     useEffect(() => {
         const fetchFlights = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/v1/flights");
+                const response = await axios.get("/api/v1/flights");
                 let flights = response.data;
 
                 if (searchText && searchText.trim()) {

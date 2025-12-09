@@ -1,3 +1,4 @@
+import dbConfig from './data/dbConfig.js';
 import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';

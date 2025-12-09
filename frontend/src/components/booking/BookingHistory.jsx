@@ -8,7 +8,7 @@ export default function BookingHistory() {
         const loadBookings = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/api/v1/users/opilane/bookings"
+                    "/api/v1/users/opilane/bookings"
                 );
 
                 setBookings(response.data);
@@ -22,7 +22,7 @@ export default function BookingHistory() {
 
     const removeBooking = async (id) => {
     try {
-        await axios.delete(`http://localhost:8000/api/v1/bookings/${id}`);
+        await axios.delete(`/api/v1/bookings/${id}`);
         setBookings(bookings.filter(b => b.id !== id));
     } catch (err) {
         console.error("Failed to remove booking", err);
