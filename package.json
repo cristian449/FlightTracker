@@ -9,8 +9,8 @@
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "start": "npm --prefix backend start",
-    "postinstall": "cd frontend && npm run build",
-    "build": "subpkg run build",
+    "postinstall": "subpkg install",
+    "build": "cd frontend && npm install && npm run build && cd .. && cp -r ./frontend/dist ./backend/dist",
     "backend-swagger": "cd backend && npm run swagger"
   },
   "repository": {
