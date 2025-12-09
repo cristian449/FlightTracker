@@ -1,8 +1,8 @@
 import "./App.css";
 
 import IndexPage from "./components/indexpage.jsx";
-import LoginForm from "./components/authorization/LoginForm.jsx";
-import RegisterForm from "./components/authorization/RegisterForm.jsx";
+import LoginForm from "./components/authorization/Loginform.jsx";
+import RegisterForm from "./components/authorization/Registerform.jsx";
 
 import FilterableFlightsTable from "./components/flight/filterableFlightsTable.jsx";
 import BookingHistory from "./components/booking/BookingHistory.jsx";
