@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchBar from "../common/searchBar.jsx";
-import FlightsTable from "./FlightsTable.jsx";
+import FlightsTable from "./flightsTable.jsx";
 
 export default function FilterableFlightsTable() {
     const [searchText, setSearchText] = useState("");
