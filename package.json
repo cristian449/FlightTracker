@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "start": "npm --prefix backend start",
-    "postinstall": "subpkg install",
+    "postinstall": "cd frontend && npm run build",
     "build": "subpkg run build",
     "backend-swagger": "cd backend && npm run swagger"
   },
