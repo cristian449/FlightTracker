@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
-    "start": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run preview",
+    "start": "npm --prefix backend start",
     "postinstall": "subpkg install",
     "build": "subpkg run build",
     "backend-swagger": "cd backend && npm run swagger"
