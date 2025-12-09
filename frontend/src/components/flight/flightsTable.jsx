@@ -1,5 +1,5 @@
-import AirportRow from "./tableParts/AirportRow.jsx";
-import FlightRow from "./tableParts/FlightRow.jsx";
+import AirportRow from "./tableparts/AirportRow.jsx";
+import FlightRow from "./tableparts/FlightRow.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
