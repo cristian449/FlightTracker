@@ -20,22 +20,22 @@ const sequelize = isTest
         define: {
             defaultScope: {
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt']
-                }
-            }
-        }
+                    exclude: ["createdAt", "updatedAt"],
+                },
+            },
+        },
     })
     : new Sequelize({
         dialect: "sqlite",
-        storage: process.env.DB_FILE,
+        storage: process.env.DB_FILE || "./database.sqlite",
         logging: false,
         define: {
             defaultScope: {
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt']
-                }
-            }
-        }
+                    exclude: ["createdAt", "updatedAt"],
+                },
+            },
+        },
     });
 
 (async () => {
@@ -47,36 +47,36 @@ const sequelize = isTest
     }
 })();
 
-
 const db = {};
 db.Flights = FlightModel(sequelize, DataTypes);
 db.Users = UserModel(sequelize, DataTypes);
 db.Bookings = BookingModel(sequelize, DataTypes);
 db.FlightEvents = Flighteventmodel(sequelize, DataTypes);
 
-
-
-
+// set up relations (associations)
 relations(db);
 
+// sync helper
 const sync = async () => {
-    await sequelize.sync({ force: true });
+    // IMPORTANT: do NOT use { force: true } in production unless you
+    // want to drop and recreate all tables on every restart.
+    await sequelize.sync();
     console.log("All models synchronized.");
 };
 
-if (process.env.DB_SYNC === "true") {
-    await sync();
-
-    if (process.env.DB_SEED === "true") {
+// Automatically sync + seed in non-test environments (local dev + Azure)
+if (!isTest) {
+    try {
+        await sync();
         try {
             await seed(db);
             console.log("Seeding succeeded!");
         } catch (e) {
             console.error("Seeding failed:", e.message);
         }
+    } catch (e) {
+        console.error("Sync failed:", e.message);
     }
 }
 
 export { sequelize, sync, db };
-
-
