@@ -2,14 +2,13 @@
   "name": "flighttracker",
   "version": "1.0.0",
   "description": "Hajusrakenduste projekt",
-  "main": "index.js",
   "subPackages": [
     "backend",
     "frontend"
   ],
   "scripts": {
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
-    "start": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run preview\"",
+    "start": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run preview",
     "postinstall": "subpkg install",
     "build": "subpkg run build",
     "backend-swagger": "cd backend && npm run swagger"
