@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SearchBar from "../common/SearchBar.jsx";
+import SearchBar from "../common/searchBar.jsx";
 import FlightsTable from "./FlightsTable.jsx";
 
 export default function FilterableFlightsTable() {
